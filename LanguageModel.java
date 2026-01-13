@@ -119,20 +119,20 @@ public class LanguageModel {
     public static void main(String[] args) {
         int windowLength = Integer.parseInt(args[0]);
         String initialtext = args[1];
-        int textLength = Integer.parseInt(args[2]);
+        int seed = Integer.parseInt(args[2]);
         String mode = args[3];
         String filename = args[4];
 
         LanguageModel model;
         if (mode.equals("fixed")) {
-            model = new LanguageModel(windowLength, 20);
+            model = new LanguageModel(windowLength, seed);
         } else {
             model = new LanguageModel(windowLength);
         }
 
         model.train(filename);
 
-        String generatedText = model.generate(initialtext, textLength);
+        String generatedText = model.generate(initialtext, seed);
         System.out.println(generatedText);
     }
 }
