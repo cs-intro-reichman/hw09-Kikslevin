@@ -38,13 +38,13 @@ public class List {
     
     /** GIVE Textual representation of this list. */
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         Node current = first;
         while (current != null) {
-            result += current.cp;
+            result.append(current.cp.toString());
             current = current.next;
         }
-        return result;
+        return result.toString();
     }
 
     /** Returns the index of the first CharData object in this list
@@ -82,24 +82,22 @@ public class List {
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
     public boolean remove(char chr) {
-        Node current = first;
-        
+    
+    Node prev = null;
+    Node current = first;
         while (current != null) {
             if (current.cp.chr == chr) {
-                // Remove current node
-                if (current == first) {
+                 if (prev == null) {
                     first = current.next;
-                } else {
-                    Node prev = first;
-                    while (prev.next != current) {
-                        prev = prev.next;
+                    } else {
+                        prev.next = current.next;
                     }
-                    prev.next = current.next;
+                    size--;
+                    return true;
                 }
-                size--;
-                return true;
+                prev = current;
+                current = current.next;
             }
-        }
         return false;
     }
 
